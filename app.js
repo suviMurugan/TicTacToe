@@ -34,7 +34,7 @@ function initPlayers() {
 	players[0]['symbol'] = 'x';
 	players[0]['symbol'] = 'o';
 	mySymbol = (players[0]['id'] == gapi.hangout.getLocalParticipantId()) ? 'x' : 'o';
-	delta({'players': JSON.strigify(players), 'turn': 'x', 'matrix': matrix});
+	delta({'players': JSON.stringify(players), 'turn': 'x', 'matrix': matrix});
 	document.getElementById('players').innerHTML = participants[0].person.displayName + ' plays X and ' + participants[1].person.displayName + ' plays O';
 }
 
