@@ -1,4 +1,5 @@
 var mySymbol;
+var myIndex;
 
 function stringCompare(a,b) {
 	return a['name'].toLowerCase().localeCompare(b['name'].toLowerCase());
@@ -9,6 +10,10 @@ function populatePlayers() {
 	var players = [];
 	for(i in participants) {
 		players[i] = {'name': participants[i].person.displayName, 'id': participants[i].id};
+		if(participants[i].id == gapi.hangout.getLocalParticipantId()) {
+			myIndex = i;
+			console.log("myindex is: " + myIndex);
+		}
 	}
 	return players.sort(stringCompare);
 }
@@ -33,7 +38,7 @@ function initPlayers() {
 	var players = populatePlayers();
 	players[0]['symbol'] = 'x';
 	players[1]['symbol'] = 'o';
-	mySymbol = (players[0]['id'] == gapi.hangout.getLocalParticipantId()) ? 'x' : 'o';
+	mySymbol = (myIndex == 0) ? 'x' : 'o';
 	delta({'players': JSON.stringify(players), 'turn': 'x', 'matrix': JSON.stringify(matrix)});
 	document.getElementById('players').innerHTML = players[0]['name'] + ' plays X and ' + players[1]['name'] + ' plays O';
 }
@@ -46,19 +51,44 @@ function get(key) {
 	return gapi.hangout.data.getValue(key);
 }
 
+function updateUI(matrix) {
+	for(var i = 0; i < 3; i++) {
+		for(var j = 0; j < 3; j++) {
+			var symbol = '';
+			if(matrix[i][j] == 1) {
+				symbol = 'X';
+			} else if (matrix[i][j] == 2) {
+				symbol = 'O';
+			}
+			document.getElementById('b' + i + j).innerHTML = symbol;
+		}
+	}
+}
+
+function changeUI(state) {
+	for(var i = 0; i < 3; i++) {
+		for(var j = 0; j < 3; j++) {
+			document.getElementById('b' + i + j).disabled = state; 
+		}
+	}
+}
+
 function move(button) {
-	button.innerHTML = mySymbol;
 	var i = parseInt(button.id[1]), j = parseInt(button.id[2]);
-	var matrix = get('matrix');
+	var matrix = JSON.parse(get('matrix'));
 	matrix[i][j] = (mySymbol == 'x') ? 1 : 2;
+	updateUI(matrix);
+	changeUI(true);
 	var turn = (mySymbol == 'x') ? 'o' : 'x';
-	delta({'matrix': matrix, 'turn': turn});
+	delta({'matrix': JSON.stringify(matrix), 'turn': turn});
 }
 
 function stateChange(evt) {
+	updateUI(JSON.parse(get('matrix')));
 	printTurn();
 	if(get('turn') == mySymbol) {
 		document.getElementById('turn').innerHTML += " &nbsp; make your move!";
+		changeUI(false);
 	}
 }
 
