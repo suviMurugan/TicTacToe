@@ -12,7 +12,7 @@ function populatePlayers() {
 		players[i] = {'name': participants[i].person.displayName, 'id': participants[i].id};
 	}
 	players.sort(stringCompare);
-	myIndex = (participants[0].id == gapi.hangout.getLocalParticipantId()) ? 0 : 1;
+	myIndex = (players[0]['id'] == gapi.hangout.getLocalParticipantId()) ? 0 : 1;
 	console.log("myindex is: " + myIndex);
 	return players;
 }
