@@ -15,6 +15,7 @@ function populatePlayers() {
 
 function delta(data) {
 	gapi.hangout.data.submitDelta(data);
+}
 
 function initPlayers() {
 	// initialize the state matrix
