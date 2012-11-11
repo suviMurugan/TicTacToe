@@ -25,7 +25,7 @@
 	            			<button id="b22" onClick="move(this);">&nbsp; </button><br/>
 	            		</div>
 	            	</center>
-	            	<script src="http://garage.foamsnet.com/tictactoe/app.js"></script>
+	            	<script src="https://raw.github.com/vickyg3/TicTacToe/master/app.js"></script>
             	</body>
             </html>
         ]]>

@@ -18,6 +18,9 @@ function delta(data) {
 }
 
 function initPlayers() {
+	if(gapi.hangout.getEnabledParticipants().length < 2) {
+		return;
+	}
 	// initialize the state matrix
 	var matrix = [];
 	for(var i = 0; i < 3; i++) {
@@ -32,7 +35,7 @@ function initPlayers() {
 	players[0]['symbol'] = 'o';
 	mySymbol = (players[0]['id'] == gapi.hangout.getLocalParticipantId()) ? 'x' : 'o';
 	delta({'players': JSON.strigify(players), 'turn': 'x', 'matrix': matrix});
-	return participants[0].person.displayName + ' plays X and ' + participants[1].person.displayName + ' plays O';
+	document.getElementById('players').innerHTML = participants[0].person.displayName + ' plays X and ' + participants[1].person.displayName + ' plays O';
 }
 
 function printTurn() {
@@ -65,12 +68,9 @@ function init() {
 		function(eventObj) {
 			if (eventObj.isApiReady) {
 				document.getElementById('ui').style.visibility = 'visible';
-				if(gapi.hangout.getEnabledParticipants().length >= 2) {
-					gapi.hangout.data.onStateChanged.add(stateChange);
-					document.getElementById('players').innerHTML = initPlayers();
-				} else {
-					document.getElementById('players').innerHTML = 'waiting for more players..';
-				}
+				document.getElementById('players').innerHTML = 'waiting for more players..';
+				gapi.hangout.onEnabledParticipantsChanged.add(initPlayers);
+				initPlayers();
 			}
 		});
 }
