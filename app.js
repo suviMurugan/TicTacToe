@@ -89,6 +89,9 @@ function stateChange(evt) {
 	if(get('turn') == mySymbol) {
 		document.getElementById('turn').innerHTML += " &nbsp; make your move!";
 		changeUI(false);
+	} else {
+		document.getElementById('turn').innerHTML += " &nbsp; waiting for opponent to move!";
+		changeUI(true);
 	}
 }
 
@@ -100,6 +103,7 @@ function init() {
 				document.getElementById('ui').style.visibility = 'visible';
 				document.getElementById('players').innerHTML = 'waiting for more players..';
 				gapi.hangout.onEnabledParticipantsChanged.add(initPlayers);
+				gapi.hangout.data.onStateChanged.add(stateChange);
 				initPlayers();
 			}
 		});
