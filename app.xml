@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="Tic Tac Toe!">
+        <Require feature="rpc"/>
+        <Require feature="views"/>
+    </ModulePrefs>
+    <Content type="html">
+        <![CDATA[
+            <script src="//hangoutsapi.talkgadget.google.com/hangouts/_/api/hangout.js?v=1.2"></script>
+            <html>
+            	<body>
+            		<center>
+            			<h3>Tic Tac Toe!</h3>
+	            		<div id="ui" style="visibility: none">
+	            			<div id="players"></div>
+	            			<div id="turn"></div>
+	            			<button id="b00" onClick="move(this);">&nbsp; </button>
+	            			<button id="b01" onClick="move(this);">&nbsp; </button>
+	            			<button id="b02" onClick="move(this);">&nbsp; </button><br/>
+	            			<button id="b10" onClick="move(this);">&nbsp; </button>
+	            			<button id="b11" onClick="move(this);">&nbsp; </button>
+	            			<button id="b12" onClick="move(this);">&nbsp; </button><br/>
+	            			<button id="b20" onClick="move(this);">&nbsp; </button>
+	            			<button id="b21" onClick="move(this);">&nbsp; </button>
+	            			<button id="b22" onClick="move(this);">&nbsp; </button><br/>
+	            		</div>
+	            	</center>
+	            	<script src="http://garage.foamsnet.com/tictactoe/app.js"></script>
+            	</body>
+            </html>
+        ]]>
+    </Content>
+</Module>
