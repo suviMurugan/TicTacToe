@@ -2,7 +2,7 @@ var mySymbol;
 var myIndex;
 
 function stringCompare(a,b) {
-	return a['name'].toLowerCase().localeCompare(b['name'].toLowerCase());
+	return a['id'].toLowerCase().localeCompare(b['id'].toLowerCase());
 }
 
 function populatePlayers() {
@@ -10,12 +10,11 @@ function populatePlayers() {
 	var players = [];
 	for(i in participants) {
 		players[i] = {'name': participants[i].person.displayName, 'id': participants[i].id};
-		if(participants[i].id == gapi.hangout.getLocalParticipantId()) {
-			myIndex = i;
-			console.log("myindex is: " + myIndex);
-		}
 	}
-	return players.sort(stringCompare);
+	players.sort(stringCompare);
+	myIndex = (participants[0].id == gapi.hangout.getLocalParticipantId()) ? 0 : 1;
+	console.log("myindex is: " + myIndex);
+	return players;
 }
 
 function delta(data) {
