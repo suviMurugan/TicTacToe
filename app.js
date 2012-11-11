@@ -32,10 +32,10 @@ function initPlayers() {
 	// initialize the players
 	var players = populatePlayers();
 	players[0]['symbol'] = 'x';
-	players[0]['symbol'] = 'o';
+	players[1]['symbol'] = 'o';
 	mySymbol = (players[0]['id'] == gapi.hangout.getLocalParticipantId()) ? 'x' : 'o';
 	delta({'players': JSON.stringify(players), 'turn': 'x', 'matrix': JSON.stringify(matrix)});
-	document.getElementById('players').innerHTML = participants[0].person.displayName + ' plays X and ' + participants[1].person.displayName + ' plays O';
+	document.getElementById('players').innerHTML = players[0]['name'] + ' plays X and ' + players[1]['name'] + ' plays O';
 }
 
 function printTurn() {
